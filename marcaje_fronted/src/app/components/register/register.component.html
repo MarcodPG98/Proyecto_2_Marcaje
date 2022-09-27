@@ -1,1 +1,35 @@
-<p>register works!</p>
+<br><br><br><br>
+<main class="form-signin">
+    <form [formGroup]="user" (ngSubmit)="onSubmit()">
+      <h1 class="h3 mb-3 fw-normal">Ingrese sus datos</h1>
+
+      <div class="form-floating">
+        <input type="text" name="name" class="form-control"
+        id="name" placeholder="name" formControlName="name" required>
+        <label for="floatingPassword">Nombre</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="email" name="email" class="form-control"
+        id="email" placeholder="email" formControlName="email" required>
+        <label for="floatingInput">Correo</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" name="password" class="form-control"
+        id="password" placeholder="password" formControlName="password" required>
+        <label for="floatingPassword">Contraseña</label>
+      </div>
+
+      <div class="form-floating">
+        <input type="password" name="password_confirmation" class="form-control"
+        id="password_confirmation" placeholder="password_confirmation" formControlName="password_confirmation" required>
+        <label for="floatingPassword">Confirmar Contraseña</label>
+      </div>
+
+      <button type="submit" class="w-100 btn btn-lg btn-primary" [disabled]
+      ="!user.valid">Registrar Usuario</button>
+    
+    </form>
+</main>
+

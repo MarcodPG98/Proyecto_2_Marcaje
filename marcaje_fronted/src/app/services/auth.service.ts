@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   register(user: User): Observable<User> {
-    return this.httpClient.post<User>(this.apiURL + '/register', JSON.stringify(user))
+    return this.httpClient.post<User>(this.apiURL + '/register', JSON.stringify(user), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
