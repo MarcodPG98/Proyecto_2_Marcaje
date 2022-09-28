@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { TokenService } from 'src/app/services/token.service';
+import { LoggedService } from '../../services/logged.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private token: TokenService
+    private token: TokenService,
+    private logged: LoggedService
 
   ) { }
 
@@ -30,6 +32,8 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     });
   }
+
+  public error = [];
 
   onSubmit(){
     if (!this.user.valid) {
@@ -51,12 +55,17 @@ export class LoginComponent implements OnInit {
         error.errorMessage,
         'error'
       )
+      this.handleError(error);
     });
   }
 
+  handleError(error: any){
+    this.error = error.error;
+  }
   // accediendo al token devuelto
   handleResponse(data: any){
     this.token.handle(data.access_token);
+    this.logged.changeAuthStatus(true);
     this.router.navigateByUrl('/profile');
   }
 

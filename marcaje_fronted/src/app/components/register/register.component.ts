@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   
   constructor(
     private authService: AuthService, 
-    private router: Router
+    private router: Router,
+    private token: TokenService
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +39,25 @@ export class RegisterComponent implements OnInit {
     let user: User = this.user.value;
     this.authService.register(user).subscribe((res: any) => {
       
+      this.handleResponse(res);
+
       Swal.fire(
         'Usuario Agregado',
         res.errorMessage,
         'success'
       )
+    }, error => {
+      Swal.fire(
+        'Datos no Validos',
+        error.errorMessage,
+        'error'
+      )
     });
   }
 
-
+  // accediendo al token devuelto
+  handleResponse(data: any){
+    this.token.handle(data.access_token);
+    this.router.navigateByUrl('/login');
+  }
 }

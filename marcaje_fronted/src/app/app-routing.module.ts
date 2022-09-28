@@ -5,13 +5,15 @@ import { RequestResetComponent } from './components/password/request-reset/reque
 import { ResponseResetComponent } from './components/password/response-reset/response-reset.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { BeforeLoginService } from './services/before-login.service';
+import { AfterLoginService } from './services/after-login.service';
 
 const appRoutes: Routes = [
-    {path: 'login', component: LoginComponent, pathMatch: 'full'},
-    {path: 'register', component: RegisterComponent, pathMatch: 'full'},
-    {path: 'profile', component: ProfileComponent, pathMatch: 'full'},
-    {path: 'request-password-reset', component: RequestResetComponent, pathMatch: 'full'},
-    {path: 'response-password-reset', component: ResponseResetComponent, pathMatch: 'full'}
+    {path: 'login', component: LoginComponent, canActivate: [BeforeLoginService]},
+    {path: 'register', component: RegisterComponent, canActivate: [AfterLoginService]},
+    {path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService]},
+    {path: 'request-password-reset', component: RequestResetComponent, canActivate: [AfterLoginService]},
+    {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [AfterLoginService]}
 ];
 
 @NgModule({
