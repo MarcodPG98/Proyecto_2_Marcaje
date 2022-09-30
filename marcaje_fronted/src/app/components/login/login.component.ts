@@ -55,12 +55,7 @@ export class LoginComponent implements OnInit {
         error.errorMessage,
         'error'
       )
-      this.handleError(error);
     });
-  }
-
-  handleError(error: any){
-    this.error = error.error;
   }
   // accediendo al token devuelto
   handleResponse(data: any){

@@ -33,6 +33,13 @@ export class AuthService {
     )
   } 
 
+  sendPasswordResetLink(user: User): Observable<User>{
+    return this.httpClient.post<User>(this.apiURL + '/sendPasswordResetLink', JSON.stringify(user), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
   
   errorHandler(error: any) {
     let errorMessage = '';

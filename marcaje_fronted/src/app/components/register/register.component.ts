@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
     let user: User = this.user.value;
     this.authService.register(user).subscribe((res: any) => {
       
-      this.handleResponse(res);
+      this.handleResponse();
 
       Swal.fire(
         'Usuario Agregado',
@@ -56,8 +56,7 @@ export class RegisterComponent implements OnInit {
   }
 
   // accediendo al token devuelto
-  handleResponse(data: any){
-    this.token.handle(data.access_token);
-    this.router.navigateByUrl('/login');
+  handleResponse(){
+    this.router.navigateByUrl('/');
   }
 }

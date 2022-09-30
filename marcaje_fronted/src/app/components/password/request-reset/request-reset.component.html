@@ -1,1 +1,15 @@
-<p>request-reset works!</p>
+<br><br><br><br>
+<main class="form-signin">
+    <form [formGroup]="user" (ngSubmit)="onSubmit()">
+      <h1 class="h3 mb-3 fw-normal">Ingrese correo electrónico para restablecer contraseña</h1>
+      <div class="form-floating">
+        <input type="email" name="email" class="form-control"
+        id="email" placeholder="email" formControlName="email" required>
+        <label for="floatingInput">Correo</label>
+      </div>
+
+      <br>
+      <button type="submit" class="w-100 btn btn-lg btn-primary" [disabled]
+      ="!user.valid">Enviar Correo</button>
+    </form>
+</main>
