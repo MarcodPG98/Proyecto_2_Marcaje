@@ -8,9 +8,11 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
-
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     public $timestamps = false;
+
+    use HasFactory, Notifiable;
     
     /**
      * The attributes that are mass assignable.
@@ -22,6 +24,19 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
     ];
+
+    /*
+    public function employee()
+    {
+        return $this->belongsToMany(employee::class, 'employees', 'id','id_employee')->withPivot(['full_name','phone','dpi']);
+    }
+
+    
+    public function employee_History()
+    {
+        return $this->belongsToMany(employee_History::class, 'employee_histories', 'id','id_employeeHistory');
+    }
+    */
     /**
      * The attributes that should be hidden for arrays.
      *
