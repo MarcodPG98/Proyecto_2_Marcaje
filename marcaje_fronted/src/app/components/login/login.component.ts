@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { TokenService } from 'src/app/services/token.service';
 import { LoggedService } from '../../services/logged.service';
+import { HistoryService } from '../../services/history.service';
 
 
 @Component({
@@ -17,12 +18,16 @@ export class LoginComponent implements OnInit {
 
   errorMessage = '';
   user!: FormGroup;
+  id : string = "";
+
+  users: User[] = [];
 
   constructor(
     private authService: AuthService, 
     private router: Router,
     private token: TokenService,
-    private logged: LoggedService
+    private logged: LoggedService,
+    private history: HistoryService
 
   ) { }
 
@@ -61,7 +66,20 @@ export class LoginComponent implements OnInit {
   handleResponse(data: any){
     this.token.handle(data.access_token);
     this.logged.changeAuthStatus(true);
-    this.router.navigateByUrl('/profile');
+
+    this.history.profile().subscribe((data: User[])=>{
+      this.users = data;
+      
+      let usuario = this.users;
+      //this.id = this.users[0].name;
+
+      //console.log(this.users[2]);
+      
+      //this.router.navigateByUrl('/marcaje');
+    }) 
+
+   
+    
   }
 
 }

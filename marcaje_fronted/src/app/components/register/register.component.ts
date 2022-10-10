@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
       name: new FormControl('', Validators.required,),
       password: new FormControl('', Validators.required,),
       password_confirmation: new FormControl('', Validators.required,)
-
     });
   }
 
@@ -38,7 +37,7 @@ export class RegisterComponent implements OnInit {
     }
     let user: User = this.user.value;
     this.authService.register(user).subscribe((res: any) => {
-      
+      console.log(res);
       this.handleResponse();
 
       Swal.fire(

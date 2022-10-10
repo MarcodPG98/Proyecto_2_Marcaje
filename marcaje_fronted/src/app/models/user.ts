@@ -1,6 +1,7 @@
 export class User {
-    public email: string | undefined;
-    public name: string | undefined;
-    public password: string | undefined;
-    public password_confirmation: string | undefined;
+    public id: number = 0;
+    public email: string = "";
+    public name: string = "";
+    public password: string = "";
+    public password_confirmation: string = "";
 }

@@ -7,13 +7,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BeforeLoginService } from './services/before-login.service';
 import { AfterLoginService } from './services/after-login.service';
+import { MarcajeComponent } from './components/marcaje/marcaje.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent, canActivate: [BeforeLoginService]},
-    {path: 'register', component: RegisterComponent, canActivate: [AfterLoginService]},
+    {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},
     {path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService]},
     {path: 'request-password-reset', component: RequestResetComponent, canActivate: [BeforeLoginService]},
-    {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]}
+    {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]},
+    {path: 'marcaje', component: MarcajeComponent, canActivate: [AfterLoginService]}
 ];
 
 @NgModule({
