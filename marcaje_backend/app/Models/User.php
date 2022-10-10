@@ -22,21 +22,20 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password'
     ];
 
-    /*
+    
     public function employee()
     {
-        return $this->belongsToMany(employee::class, 'employees', 'id','id_employee')->withPivot(['full_name','phone','dpi']);
+        return $this->belongsToMany(Employee::class, 'employees', 'id', 'id_employee');
     }
 
-    
-    public function employee_History()
+    public function hist_employee()
     {
-        return $this->belongsToMany(employee_History::class, 'employee_histories', 'id','id_employeeHistory');
+        return $this->belongsToMany(hist_employee::class, 'hist_employees', 'id','id_history');
     }
-    */
+
     /**
      * The attributes that should be hidden for arrays.
      *

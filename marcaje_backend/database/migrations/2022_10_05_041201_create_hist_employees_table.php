@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
-            $table->id('id_employee');
+        Schema::create('hist_employees', function (Blueprint $table) {
+            $table->id('id_history');
+            $table->date('date');
+            $table->time('hour');
+            $table->integer('entrada')->default(0);
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');
-            $table->string('full_name');
-            $table->string('phone');
-            $table->string('dpi');
-            $table->string('state')->default(1);
-            $table->datetime('created_at')->useCurrent();
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('hist_employees');
     }
 };

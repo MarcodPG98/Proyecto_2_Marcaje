@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\histEmployeeController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +31,11 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+});
+
+Route::group([
+    'middleware' => ['before' => 'jwt.auth']
+], function ($router) {
+    Route::apiResource('Employee', EmployeeController::class);
+    Route::apiResource('histEmployee', histEmployeeController::class);
 });

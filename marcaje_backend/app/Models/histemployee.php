@@ -5,26 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class histemployee extends Model
 {
-    protected $table = 'employees';
-    protected $primaryKey = 'id_employee';
+    protected $table = 'hist_employees';
+    protected $primaryKey = 'id_history';
     public $timestamps = false;
 
     use HasFactory;
     
-    
     use HasFactory;
     protected $fillable = [
-        'id_user',
-        'full_name', 
-        'phone',
-        'dpi'
+        'date', 
+        'hour',
+        'id_user'
     ];
 
     public function user()
     {
-        return $this->belongsToMany(user::class, 'users', 'id_employee','id');
+        return $this->belongsToMany(user::class, 'users', 'id_history','id');
     }
-    
 }
