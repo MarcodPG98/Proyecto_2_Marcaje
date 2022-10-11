@@ -42,9 +42,21 @@ export class HistoryService {
       catchError(this.errorHandler)
     )
   }
+
+  historialUsuario(id: number, date: String): Observable<HistEmployee[]> {
+    return this.httpClient.get<HistEmployee[]>(this.apiURL + '/histEmployee/'+id+','+date, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
+    })
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
     
   create(histEmployee: HistEmployee): Observable<HistEmployee> {
-    return this.httpClient.post<HistEmployee>(this.apiURL + '/clients', JSON.stringify(histEmployee), this.httpOptions)
+    return this.httpClient.post<HistEmployee>(this.apiURL + '/clients', JSON.stringify(histEmployee),
+    {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
+    })
     .pipe(
       catchError(this.errorHandler)
     )

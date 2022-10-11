@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   user!: FormGroup;
   id : string = "";
 
-  users: User[] = [];
+  json = "";
 
   constructor(
     private authService: AuthService, 
@@ -68,14 +68,9 @@ export class LoginComponent implements OnInit {
     this.logged.changeAuthStatus(true);
 
     this.history.profile().subscribe((data: User[])=>{
-      this.users = data;
-      
-      let usuario = this.users;
-      //this.id = this.users[0].name;
-
-      //console.log(this.users[2]);
-      
-      //this.router.navigateByUrl('/marcaje');
+      this.json = JSON.stringify(data);
+      var dato = JSON.parse(this.json);
+      this.router.navigateByUrl('/marcaje/'+dato.id);
     }) 
 
    

@@ -1,5 +1,8 @@
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HistEmployee } from 'src/app/models/histEmployee';
+import { HistoryService } from 'src/app/services/history.service';
 
 @Component({
   selector: 'app-marcaje',
@@ -7,59 +10,53 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./marcaje.component.css']
 })
 export class MarcajeComponent implements OnInit {
-  //declaracion de variables
-  today=new Date(); 
-  fecha ='';
-  hora ='';
-  tipo_entrada:boolean=true;
-  id_user= 0;
-  id_estado=0;
-  tipo_usuario=0;
-  //marcado: Marcado = new Marcado();
-  //lastMarcaje: Marcado[]=[];
-  time = new Date();
-  rxTime = new Date();
-  //subscription: Subscription | undefined;
+  
+  fecha = "";
+  hora ="";
+  json = "";
 
-  //contructor Servicios
+  tipo_entrada:boolean=true;
+  id= 0;
+  histEmployee : HistEmployee[] = [];
+
   constructor(
-    //private marcajeService: MarcajeService,
+    private history: HistoryService,
     private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.id_user = this.route.snapshot.params['id_usuario'];
-    /*
-    this.id_usuario = this.route.snapshot.params['id_usuario'];
-    this.setDate();
-    this.marcajeService.getMarcajeByUser(this.id_usuario,this.fecha).subscribe((data:Marcado[])=>{
-    this.lastMarcaje = data;
-    let ultimoRegistro = this.lastMarcaje.pop();
+    this.id = this.route.snapshot.params['id'];
+
+    this.Formato_Fecha();
     
-    if(ultimoRegistro!=null){
-      this.entrada=false;
-      this.fecha=ultimoRegistro.fecha;
-      this.hora= ultimoRegistro.hora;
-      this.id_estado=2;
-    }
-  });
-*/
+    this.history.historialUsuario(this.id,this.fecha).subscribe((data: HistEmployee[]) => {
+      
+      this.json = JSON.stringify(data);
+      var dato = JSON.parse(this.json);
+      console.log(dato[0].date);
+      if(dato != null){
+        this.tipo_entrada = false;
+        this.fecha = dato[0].date;
+        this.hora = dato[0].hour;
+      }
+    });
 }
 //Funcion marcaje
 Marcar(){    
   if(this.tipo_entrada!=false){
-  this.tipo_entrada =false;
+  this.tipo_entrada = false;
   //this.marcar(1);
   }else{
   //this.marcar(2);
   }
 }
-  /*
-  setDate(){
-    this.today=new Date();
-    this.fecha = formatDate(this.today, 'MM-dd-yyyy'	, 'en-US');
-    this.hora = formatDate(this.today, 'h:mm:ss a'	, 'en-US');
-  }
+
+Formato_Fecha(){
+  this.fecha = formatDate(Date.now(), 'YYYY-dd-MM', 'en-US');
+  this.hora = formatDate(Date.now(), 'hh:mm:ss a', 'en-US');
+}
+
+/*
 //funcion marcar/recibe estado, devulve informacion de marcaje
   marcar(id_estado: number){
     this.setDate();
@@ -72,5 +69,5 @@ Marcar(){
       alert("Marcaje con exito, tu ultimo marcaje fue a las "+this.fecha +this.hora);
     
   }
-  */
+*/
 }
