@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('hist_employees', function (Blueprint $table) {
             $table->id('id_history');
-            $table->date('date');
-            $table->time('hour');
+            $table->string('date');
+            $table->string('hour');
             $table->integer('entrada')->default(0);
             $table->bigInteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');

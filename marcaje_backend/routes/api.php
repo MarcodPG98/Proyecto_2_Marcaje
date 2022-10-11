@@ -36,6 +36,9 @@ Route::group([
 Route::group([
     'middleware' => ['before' => 'jwt.auth']
 ], function ($router) {
+    Route::get('histEmployee/{id_user},{date}', [histEmployeeController::class, 'historialUsuario']);
+    Route::post('histEmployee', [histEmployeeController::class, 'store']);
+    Route::get('histEmployee', [histEmployeeController::class, 'index']);
     Route::apiResource('Employee', EmployeeController::class);
-    Route::apiResource('histEmployee', histEmployeeController::class);
+    //Route::apiResource('histEmployee', histEmployeeController::class);
 });
