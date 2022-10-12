@@ -46,24 +46,8 @@ class histEmployeeController extends Controller
 
     public function historialUsuario($id_user,$date)
     {   
-        // array para guardar los valores del foreach
-        //$historialEMP = [];
-
         $historial_emp = histemployee::where('id_user',$id_user)->where('date',$date)->get();
-
-        /* recorremos los datos recuperados
-        foreach($historial_emp as $historial){
-            
-            $usuario = usuario::where('id_usuario',$id_usuario)->get('id_empleado');
-
-            $empleado = empleado::where('id_empleado', $id_usuario)->get(['id_empleado','nombres','apellidos']);
-
-            $historial->id_usuario = $empleado;
-
-            // almaceno los datos al array
-            $historialEMP[] = $historial;
-        };
-        */
+       
         return response()->json($historial_emp, 200);
     }
 
