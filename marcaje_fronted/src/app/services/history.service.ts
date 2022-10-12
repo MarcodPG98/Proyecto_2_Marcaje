@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { HistEmployee } from '../models/histEmployee';
+import { Employee } from '../models/employee';
 import { User } from '../models/user';
 
 @Injectable({
@@ -36,12 +37,14 @@ export class HistoryService {
     
   }
 
+  /*
   getAll(): Observable<HistEmployee[]> {
     return this.httpClient.get<HistEmployee[]>(this.apiURL + '/empleado', this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
+  */
 
   historialUsuario(id: number, date: String): Observable<HistEmployee[]> {
     return this.httpClient.get<HistEmployee[]>(this.apiURL + '/histEmployee/'+id+','+date, {
@@ -52,10 +55,11 @@ export class HistoryService {
     )
   }
     
-  create(histEmployee: HistEmployee): Observable<HistEmployee> {
-    return this.httpClient.post<HistEmployee>(this.apiURL + '/clients', JSON.stringify(histEmployee),
+  create(Employee: Employee): Observable<Employee> {
+    return this.httpClient.post<HistEmployee>(this.apiURL + '/histEmployee', JSON.stringify(Employee),
     {
-      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get())
+      .set('Content-Type', 'application/json'),
     })
     .pipe(
       catchError(this.errorHandler)

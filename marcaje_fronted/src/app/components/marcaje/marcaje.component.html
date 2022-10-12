@@ -3,7 +3,7 @@
     <div *ngIf="tipo_entrada; else Salida">
       <div>
         <h1>No ha marcado aún su entrada!</h1>
-        <button type="submit" class="w-50 btn btn-lg btn-primary" (click)="Marcar()">Marcar Entrada</button>
+        <button type="submit" class="w-50 btn btn-lg btn-primary" (click)="marcarEntrada()">Marcar Entrada</button>
       </div>
     </div>
 
@@ -11,9 +11,9 @@
       <ng-template #Salida>
         <div>
           <div>
-            <h1>Último marcaje <mark>{{fecha}} {{hora}}</mark></h1>
+            <h1>Último entrada <br> {{fecha}} <br> {{hora}}</h1>
           </div>
-            <button type="submit" class="w-50 btn btn-lg btn-primary" (click)="Marcar()">Marcar nuevamente</button>
+            <button type="submit" class="w-50 btn btn btn-primary" (click)="marcarEntrada()">Marcar nuevamente</button>
           </div>
       </ng-template>
     </div>  
