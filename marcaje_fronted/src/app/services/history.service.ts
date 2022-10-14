@@ -12,21 +12,18 @@ import { User } from '../models/user';
 })
 export class HistoryService {
 
+  // guardamos las direcciones del servidor
   private apiURL = "http://127.0.0.1:8000/api";
   private authURL = "http://127.0.0.1:8000/api/auth";
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    })
-  }
 
   constructor(
     private token : TokenService,
     private httpClient: HttpClient
   ) { }
 
+  /*
+    Método para obtener los datos del usuario
+  */
   profile(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.authURL + '/user-profile', {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
@@ -46,6 +43,10 @@ export class HistoryService {
   }
   */
 
+  /*
+    Método para devolver los datos del usuario validando
+    por medio del id y fecha del día
+  */
   historialUsuario(id: number, date: String): Observable<HistEmployee[]> {
     return this.httpClient.get<HistEmployee[]>(this.apiURL + '/histEmployee/'+id+','+date, {
       headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
@@ -54,7 +55,22 @@ export class HistoryService {
       catchError(this.errorHandler)
     )
   }
+
+  /*
+    Método para actualizar hora de salida del usuario
+  */
+  validarEntrada(id: number): Observable<HistEmployee[]> {
+    return this.httpClient.get<HistEmployee[]>(this.apiURL + '/histEmployee/'+id, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.token.get()),
+    })
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
     
+  /*
+    Método para crear un nuevo registro
+  */
   create(Employee: Employee): Observable<Employee> {
     return this.httpClient.post<HistEmployee>(this.apiURL + '/histEmployee', JSON.stringify(Employee),
     {
@@ -66,6 +82,9 @@ export class HistoryService {
     )
   }
 
+  /*
+    Método para regresar posibles errores
+  */
   errorHandler(error: any) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {
