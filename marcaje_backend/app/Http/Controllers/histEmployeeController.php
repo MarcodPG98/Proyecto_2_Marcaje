@@ -16,6 +16,9 @@ class histEmployeeController extends Controller
      */
     public function index()
     {
+        /*
+            Mostrar todos los registros
+        */
         $histEmployees = histemployee::all();
         return response()->json($histEmployees);
     }
@@ -28,6 +31,9 @@ class histEmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        /*
+            Crear un nuevo registro
+        */
         $histEmployee = histemployee::create($request->all());
         return response()->json([
             'message' => "history Employee saved successfully!",
