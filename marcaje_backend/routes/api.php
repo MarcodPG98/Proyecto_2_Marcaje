@@ -39,6 +39,7 @@ Route::group([
     Route::get('histEmployee/{id_user},{date}', [histEmployeeController::class, 'historialUsuario']);
     Route::post('histEmployee', [histEmployeeController::class, 'store']);
     Route::get('histEmployee', [histEmployeeController::class, 'index']);
+    Route::get('histEmployee/{id_user}', [histEmployeeController::class, 'validarEntrada']);
     Route::apiResource('Employee', EmployeeController::class);
     //Route::apiResource('histEmployee', histEmployeeController::class);
 });

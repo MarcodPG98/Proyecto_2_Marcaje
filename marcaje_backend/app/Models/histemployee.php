@@ -16,7 +16,7 @@ class histemployee extends Model
     use HasFactory;
     protected $fillable = [
         'date', 
-        'hour',
+        'checkTime',
         'id_user'
     ];
 
